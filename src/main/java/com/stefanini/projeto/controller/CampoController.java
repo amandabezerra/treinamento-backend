@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.stefanini.projeto.exception.TreinaException;
-import com.stefanini.projeto.model.Dono;
-import com.stefanini.projeto.service.DonoService;
+import com.stefanini.projeto.model.Campo;
+import com.stefanini.projeto.service.CampoService;
 
 @CrossOrigin
 @Controller
-@RequestMapping(value = "/dono")
-public class DonoController {
+@RequestMapping(value = "/campo")
+public class CampoController {
 
 	@Autowired
-	private DonoService service;
+	private CampoService service;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Dono> findAll() throws TreinaException {
+	public @ResponseBody List<Campo> findAll() throws TreinaException {
 		return service.findAll();
 	}	
 
