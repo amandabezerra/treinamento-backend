@@ -12,35 +12,31 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Cachorro implements Serializable{
+public class Linha implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "SQ_CA_NU", sequenceName = "SQ_CA_NU", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_CA_NU")
-	@Column(name = "CA_NU")
+	@SequenceGenerator(name = "SQ_LN_NU", sequenceName = "SQ_LN_NU", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_LN_NU")
+	@Column(name = "LN_NU")
 	private Long id;
 
-	@Column(name = "CA_NOME")
+	@Column(name = "LN_NO")
 	private String nome;
-
-	@Column(name = "CA_IDADE")
-	private Integer idade;
 
 	@ManyToOne
 	@com.fasterxml.jackson.annotation.JsonIgnore
-	@JoinColumn(name = "DN_NU", referencedColumnName = "DN_NU")
-	private Dono dono;
+	@JoinColumn(name = "CPO_NU", referencedColumnName = "CPO_NU")
+	private Campo campo;
 
-	public Cachorro() {
+	public Linha() {
 		super();
 	}
 
-	public Cachorro(String nome, Integer idade) {
+	public Linha(String nome) {
 		super();
 		this.nome = nome;
-		this.idade = idade;
 	}
 
 	public Long getId() {
@@ -51,14 +47,6 @@ public class Cachorro implements Serializable{
 		this.id = id;
 	}
 
-	public Dono getDono() {
-		return dono;
-	}
-
-	public void setDono(Dono dono) {
-		this.dono = dono;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -66,15 +54,15 @@ public class Cachorro implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public Integer getIdade() {
-		return idade;
+	
+	public Campo getCampo() {
+		return campo;
 	}
 
-	public void setIdade(Integer idade) {
-		this.idade = idade;
+	public void setCampo(Campo campo) {
+		this.campo = campo;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -91,7 +79,7 @@ public class Cachorro implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cachorro other = (Cachorro) obj;
+		Linha other = (Linha) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -99,5 +87,5 @@ public class Cachorro implements Serializable{
 			return false;
 		return true;
 	}
-
+	
 }
