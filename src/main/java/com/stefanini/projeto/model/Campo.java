@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Campo implements Serializable {
@@ -23,6 +25,8 @@ public class Campo implements Serializable {
 	private Long id;
 	
 	@Column(name = "CPO_NO")
+	@NotBlank(message = "Nome é obrigatório")
+	@Size(max = 20, message = "Nome não pode ultrapassar 20 caracteres")
 	private String nome;
 	
 	@OneToMany(mappedBy = "campo")
