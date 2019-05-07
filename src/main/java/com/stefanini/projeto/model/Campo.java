@@ -3,8 +3,10 @@ package com.stefanini.projeto.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +31,8 @@ public class Campo implements Serializable {
 	@Size(max = 20, message = "Nome não pode ultrapassar 20 caracteres")
 	private String nome;
 	
-	@OneToMany(mappedBy = "campo")
+	@OneToMany(mappedBy = "campo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Size(max = 5, message = "Campo só pode ter até 5 linhas")
 	private List<Linha> linhas;
 	
 	public Campo() {
@@ -65,6 +68,13 @@ public class Campo implements Serializable {
 	public void setLinhas(List<Linha> linhas) {
 		this.linhas = linhas;
 	}
+	
+	public Linha adicionaLinha(Linha linha) {
+        getLinhas().add(linha);
+        linha.setCampo(this);
+
+        return linha;
+    }
 	
 	@Override
 	public int hashCode() {

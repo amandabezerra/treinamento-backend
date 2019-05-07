@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.stefanini.projeto.exception.TreinaException;
 import com.stefanini.projeto.model.Campo;
+import com.stefanini.projeto.model.Linha;
 import com.stefanini.projeto.repository.CampoRepository;
 
 @Service
@@ -22,7 +23,13 @@ public class CampoService {
 		return repository.findById(id).get();
 	}
 	
-	public Campo cadastrar(Campo campo) throws TreinaException {
+	public Campo cadastrar(Campo campo) throws TreinaException {		
+		if (campo.getLinhas() != null) {
+			for (Linha linha : campo.getLinhas()) {
+				linha.setCampo(campo);
+			}
+		}
+		
 		return repository.save(campo);
 	}
 	
@@ -33,6 +40,12 @@ public class CampoService {
 	public Campo alterar(Campo campo, Long id) throws TreinaException {
 		Campo campoAlterado = (Campo) repository.findById(id).get();
 		campoAlterado.setNome(campo.getNome());
+		
+		if (campo.getLinhas() != null) {
+			for (Linha linha : campo.getLinhas()) {
+				campoAlterado.adicionaLinha(linha);
+			}
+		}
 		
 		return repository.save(campoAlterado);
 	}

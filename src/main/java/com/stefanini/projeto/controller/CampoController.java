@@ -25,29 +25,33 @@ public class CampoController {
 	@Autowired
 	private CampoService service;
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/listar", 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Campo>> listar() throws TreinaException {
 		return new ResponseEntity<>(service.listar(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/consultar/{idCampo}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/consultar/{idCampo}", 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Campo> consultar(@PathVariable(value = "idCampo") Long idCampo) throws TreinaException {
 		return new ResponseEntity<>(service.consultar(idCampo), HttpStatus.OK);
 	}
     
 	@RequestMapping(method = RequestMethod.POST, value = "/cadastrar", 
-					produces = MediaType.APPLICATION_JSON_VALUE)
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Campo> cadastrar(@RequestBody Campo campo) throws TreinaException {
 		return new ResponseEntity<>(service.cadastrar(campo), HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE, value = "/excluir/{idCampo}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.DELETE, value = "/excluir/{idCampo}", 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> excluir(@PathVariable(value = "idCampo") Long idCampo) throws TreinaException {
 		service.excluir(idCampo);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, value = "/alterar/{idCampo}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.PUT, value = "/alterar/{idCampo}", 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Campo> alterar(@PathVariable(value = "idCampo") Long idCampo, 
 										@RequestBody Campo campo) throws TreinaException {
 		return new ResponseEntity<>(service.alterar(campo, idCampo), HttpStatus.OK);

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,9 +30,12 @@ public class Linha implements Serializable {
 	@Size(max = 20, message = "Nome não pode ultrapassar 20 caracteres")
 	private String nome;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@com.fasterxml.jackson.annotation.JsonIgnore
-	@JoinColumn(name = "CPO_NU", referencedColumnName = "CPO_NU")
+	@JoinColumn(name = "CPO_NU",
+				referencedColumnName = "CPO_NU", 
+				nullable = false,
+				updatable = false)
 	private Campo campo;
 
 	public Linha() {
