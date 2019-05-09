@@ -69,7 +69,7 @@ public class CampoService {
 	}
 	
 	private void validaNumeroDeLinhas(Campo campo) throws TreinaException {
-		if (campo.getLinhas().size() > 5) {
+		if (campo.getLinhas() != null && campo.getLinhas().size() > 5) {
 			throw new TreinaException("Campo não pode ter mais de 5 linhas.");
 		}
 	}
