@@ -26,12 +26,13 @@ public class Campo implements Serializable {
 	@Column(name = "CPO_NU")
 	private Long id;
 	
-	@Column(name = "CPO_NO")
+	@Column(name = "CPO_NO", unique = true)
 	@NotBlank(message = "Nome é obrigatório")
 	@Size(max = 20, message = "Nome não pode ultrapassar 20 caracteres")
 	private String nome;
 	
-	@OneToMany(mappedBy = "campo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "campo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, 
+			fetch = FetchType.EAGER, orphanRemoval = true)
 	@Size(max = 5, message = "Campo só pode ter até 5 linhas")
 	private List<Linha> linhas;
 	
@@ -69,11 +70,9 @@ public class Campo implements Serializable {
 		this.linhas = linhas;
 	}
 	
-	public Linha adicionaLinha(Linha linha) {
+	public void adicionaLinha(Linha linha) {
         getLinhas().add(linha);
         linha.setCampo(this);
-
-        return linha;
     }
 	
 	@Override

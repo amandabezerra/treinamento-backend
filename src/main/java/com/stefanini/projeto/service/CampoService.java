@@ -24,6 +24,10 @@ public class CampoService {
 	}
 	
 	public Campo cadastrar(Campo campo) throws TreinaException {		
+		validaTamanhoNome(campo);
+		validaNumeroDeLinhas(campo);
+		validaNomeUnico(campo);
+		
 		if (campo.getLinhas() != null) {
 			for (Linha linha : campo.getLinhas()) {
 				linha.setCampo(campo);
@@ -38,6 +42,10 @@ public class CampoService {
 	}
 	
 	public Campo alterar(Campo campo, Long id) throws TreinaException {
+		validaTamanhoNome(campo);
+		validaNumeroDeLinhas(campo);
+		validaNomeUnico(campo);
+		
 		Campo campoAlterado = (Campo) repository.findById(id).get();
 		campoAlterado.setNome(campo.getNome());
 		
@@ -48,6 +56,31 @@ public class CampoService {
 		}
 		
 		return repository.save(campoAlterado);
+	}
+	
+	private void validaNumeroDeLinhas(Campo campo) throws TreinaException {
+		if (campo.getLinhas().size() > 5) {
+			throw new TreinaException("Campo não pode ter mais de 5 linhas.");
+		}
+	}
+
+	private void validaTamanhoNome(Campo campo) throws TreinaException {
+		if (campo.getNome().length() > 20) {
+			throw new TreinaException("Tamanho de 'nome' não pode ultrapassar 20 caracteres.");
+		}
+	}
+	
+	private void validaNomeUnico(Campo campo) throws TreinaException {
+		boolean nomeExiste = false;
+		for (Campo c : listar()) {
+			if (c.getNome() == campo.getNome()) {
+				nomeExiste = true;
+				break;
+			}
+		}
+		if (nomeExiste) {
+			throw new TreinaException("Já existe um entidade Campo com esse nome.");
+		}
 	}
 
 }
