@@ -31,9 +31,17 @@ public class CampoController {
 		return new ResponseEntity<>(service.listar(), HttpStatus.OK);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/consultarPorNome/{nome}", 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Campo>> consultarPorNome(@PathVariable(value = "nome") String nome) 
+			throws TreinaException {
+		return new ResponseEntity<>(service.consultarPorNome(nome), HttpStatus.OK);
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/consultar/{idCampo}", 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Campo> consultar(@PathVariable(value = "idCampo") Long idCampo) throws TreinaException {
+	public ResponseEntity<Campo> consultar(@PathVariable(value = "idCampo") Long idCampo) 
+			throws TreinaException {
 		return new ResponseEntity<>(service.consultar(idCampo), HttpStatus.OK);
 	}
     
