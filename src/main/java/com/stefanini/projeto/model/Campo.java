@@ -75,6 +75,11 @@ public class Campo implements Serializable {
         linha.setCampo(this);
     }
 	
+	public void removeLinha(Linha linha) {
+		getLinhas().remove(linha);
+		linha.setCampo(null);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

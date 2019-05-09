@@ -18,6 +18,10 @@ public class CampoService {
 	public List<Campo> listar() throws TreinaException {
 		return (List<Campo>) repository.findAll();
 	}
+	
+	public List<Campo> consultarPorNome(String nome) throws TreinaException {
+		return (List<Campo>) repository.findByNomeContainingIgnoreCase(nome);
+	}
 
 	public Campo consultar(Long id) throws TreinaException {
 		return repository.findById(id).get();
@@ -56,6 +60,12 @@ public class CampoService {
 		}
 		
 		return repository.save(campoAlterado);
+	}
+	
+	public void removerTodasAsLinhas(Campo campo) {
+		for (Linha linha : campo.getLinhas()) {
+			campo.removeLinha(linha);
+		}
 	}
 	
 	private void validaNumeroDeLinhas(Campo campo) throws TreinaException {
