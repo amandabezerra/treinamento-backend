@@ -31,7 +31,8 @@ public class Campo implements Serializable {
 	@Size(max = 20, message = "Nome não pode ultrapassar 20 caracteres")
 	private String nome;
 	
-	@OneToMany(mappedBy = "campo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, 
+	@OneToMany(mappedBy = "campo", 
+			cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH}, 
 			fetch = FetchType.EAGER, orphanRemoval = true)
 	@Size(max = 5, message = "Campo só pode ter até 5 linhas")
 	private List<Linha> linhas;
